@@ -1,0 +1,52 @@
+const int IN1 = 8; 
+const int IN2 = 9; 
+const int IN3 = 10; 
+const int IN4 = 11; 
+const int trigPin = A4; 
+const int echoPin = A5; 
+void setup()  
+{ 
+ Serial.begin(9600); 
+ pinMode(trigPin, OUTPUT); 
+ pinMode(echoPin, INPUT); 
+ pinMode (IN2, OUTPUT); 
+ pinMode (IN3, OUTPUT); 
+ pinMode (IN4, OUTPUT); 
+ pinMode (IN1, OUTPUT); 
+} 
+long duration, distance; 
+void loop() 
+{  
+ digitalWrite(trigPin, LOW); 
+ delayMicroseconds(2); 
+ digitalWrite(trigPin, HIGH); 
+ delayMicroseconds(10); 
+ digitalWrite(trigPin, LOW);  
+ duration = pulseIn(echoPin, HIGH); 
+ distance = duration/58.2; 
+ Serial.println(distance); 
+ if(distance<30) // When distance less than 30cm -> Turn Left   { 
+ digitalWrite(IN1, LOW); 
+ digitalWrite(IN2, HIGH);  
+ digitalWrite(IN3, HIGH);  
+ digitalWrite(IN4, LOW);  
+ delay(500); 
+  
+ digitalWrite(IN1, HIGH); 
+ digitalWrite(IN2, HIGH);  
+ digitalWrite(IN3, LOW);  
+ digitalWrite(IN4, LOW); 
+ delay(1000); 
+  
+ } 
+  
+ else  
+ { 
+ digitalWrite(IN1, LOW); 
+ digitalWrite(IN2, HIGH);  
+ digitalWrite(IN3, LOW);  
+ digitalWrite(IN4, HIGH);  
+ }  
+ delay(100); 
+}
+
